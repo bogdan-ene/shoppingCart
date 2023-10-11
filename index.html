@@ -3,50 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <!-- Added bootstrap and font awesome via cdns -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Shopping Cart</title>
+    <script src="app.js" defer></script>
 </head>
-<body style="background-color: lightblue;">
+<body>
+    <!-- Created the container for the webpage to be displayed using bootstrap classes-->
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h1 class="text-center">Shopping Cart</h1><br /><br />
+                <h1 class="text-center">
+                  Shopping Cart
+                </h1><br />
+                <p><strong>Instructions:</strong> <em>Add your products to the cart and their price using whole or decimal numbers in what quantity you want and check the total at the end. <i class="far fa-smile"></i>
+                </em></p><br />
                 <form id="product-form">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name:</label>
+                        <label for="name" class="form-label">Product's name:</label>
                         <input type="text" id="name" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price:</label>
-                        <input type="number" id="price" class="form-control" required>
+                        <input type="text" id="price" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="color" class="form-label">Color:</label>
                         <select id="color" class="form-select">
-                            <option value="Red">Red</option>
-                            <option value="Blue">Blue</option>
-                            <option value="Green">Green</option>
-                            <option value="Orange">Orange</option>
-                            <option value="Grey">Grey</option>
-                            <option value="Pink">Pink</option>
-                            <option value="White">White</option>
-                            <option value="Brown">Brown</option>
-                            <option value="Black">Black</option>
-                            <option value="Purple">Purple</option>
-                            <option value="Yellow">Green</option>
+                            <option value="red">red</option>
+                            <option value="blue">blue</option>
+                            <option value="green">green</option>
+                            <option value="white">white</option>
+                            <option value="orange">orange</option>
+                            <option value="pink">green</option>
+                            <option value="brown">brown</option>
+                            <option value="black">black</option>
+                            <option value="purple">purple</option>
+                            <option value="yellow">yellow</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Product</button>
+                    <button type="submit" class="btn btn-primary">
+                        Add Product <i class="fas fa-cart-plus"></i>
+                    </button>
                 </form>
                 <div id="cart" class="mt-4">
-                    <h2>Cart</h2>
+                    <h2>
+                        <i class="fas fa-shopping-cart"></i> Your order:
+                    </h2>
                     <ul id="cart-list" class="list-group"></ul>
-                    <p>Total Price: <span id="total-price">0</span></p>
+                    <p>Total Price: <i class="fas fa-dollar-sign"></i> <span id="total-price">0</span></p>
                 </div>
             </div>
         </div>
     </div>
-    <script src="app.js" defer></script>
-</body>
+   </body>
 </html>

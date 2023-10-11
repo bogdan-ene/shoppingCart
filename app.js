@@ -1,15 +1,18 @@
+// Created an event listener to perform after the DOM has been loaded 
 document.addEventListener("DOMContentLoaded", function () {
     const productForm = document.getElementById("product-form");
     const cartList = document.getElementById("cart-list");
     const totalPrice = document.getElementById("total-price");
 
     productForm.addEventListener("submit", function (e) {
+        //Made sure to prevent the browser from handling the form submission in the default way
         e.preventDefault();
 
         const name = document.getElementById("name").value;
         const price = parseFloat(document.getElementById("price").value);
         const color = document.getElementById("color").value;
 
+        //Checked to see if the value for price is a logical one and stopped the app upon inputing a value that is inappropriate
         if (isNaN(price) || price <= 0) {
             return;
         }
@@ -19,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         productForm.reset();
     });
 
+    //Handle removing items from the cart
     cartList.addEventListener("click", function (e) {
         if (e.target.classList.contains("delete-btn")) {
             const index = parseInt(e.target.dataset.index);
@@ -30,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    //Handle adding and persisting items to the cart using html5 local storage api
     function addToCart(product) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         const existingProductIndex = cart.findIndex(
@@ -46,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
         displayCart();
     }
 
+    //Handle removing items from the cart using local storage
     function removeFromCart(index) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         cart.splice(index, 1);
@@ -53,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         displayCart();
     }
 
+    //Handle updating the quantity using local storage
     function updateQuantity(index, quantity) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         cart[index].quantity = parseInt(quantity);
@@ -74,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button class="btn btn-warning delete-btn" data-index="${index}">Delete</button>
             `;
             cartList.appendChild(listItem);
+           //Calculate the total price for the products in the cart
             total += product.price * product.quantity;
         });
 

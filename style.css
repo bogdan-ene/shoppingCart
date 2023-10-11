@@ -1,8 +1,13 @@
+body {
+    box-sizing: border-box;
+    /*Superscribe the rules defined by bootstrap by using the !important ruleset */
+    background-color: #99EE99 !important;
+}
+
 .container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: lightblue;
 }
 
 .btn {
