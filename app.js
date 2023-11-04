@@ -1,18 +1,21 @@
-// Created an event listener to perform after the DOM has been loaded 
+const sanitizeInput = (input) => {
+    const tempElement = document.createElement('div');
+    tempElement.innerText = input;
+    return tempElement.innerHTML;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const productForm = document.getElementById("product-form");
     const cartList = document.getElementById("cart-list");
     const totalPrice = document.getElementById("total-price");
 
     productForm.addEventListener("submit", function (e) {
-        //Made sure to prevent the browser from handling the form submission in the default way
         e.preventDefault();
 
-        const name = document.getElementById("name").value;
-        const price = parseFloat(document.getElementById("price").value);
-        const color = document.getElementById("color").value;
+        const name = sanitizeInput(document.getElementById("name").value);
+        const price = parseFloat(sanitizeInput(document.getElementById("price").value));
+        const color = sanitizeInput(document.getElementById("color").value);
 
-        //Checked to see if the value for price is a logical one and stopped the app upon inputing a value that is inappropriate
         if (isNaN(price) || price <= 0) {
             return;
         }
@@ -22,36 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         productForm.reset();
     });
 
-    //Handle removing items from the cart
-    cartList.addEventListener("click", function (e) {
-        if (e.target.classList.contains("delete-btn")) {
-            const index = parseInt(e.target.dataset.index);
-            removeFromCart(index);
-        }
-        if (e.target.classList.contains("quantity-input")) {
-            const index = parseInt(e.target.dataset.index);
-            updateQuantity(index, e.target.value);
-        }
-    });
-
-    //Handle adding and persisting items to the cart using html5 local storage api
-    function addToCart(product) {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const existingProductIndex = cart.findIndex(
-            (item) =>
-                item.name === product.name &&
-                item.color === product.color
-        );
-        if (existingProductIndex !== -1) {
-            cart[existingProductIndex].quantity += 1;
-        } else {
-            cart.push(product);
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-        displayCart();
-    }
-
-    //Handle removing items from the cart using local storage
+    // Handle removing items from the cart
     function removeFromCart(index) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         cart.splice(index, 1);
@@ -59,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         displayCart();
     }
 
-    //Handle updating the quantity using local storage
+    // Handle updating the quantity
     function updateQuantity(index, quantity) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         cart[index].quantity = parseInt(quantity);
@@ -67,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         displayCart();
     }
 
+    // Display the cart
     function displayCart() {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         let total = 0;
